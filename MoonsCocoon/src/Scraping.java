@@ -1,7 +1,4 @@
 
-package com.zenrows;
-
-import com.zenrows.data.Product;
 import org.jsoup.*;
         import org.jsoup.nodes.*;
         import org.jsoup.select.*;
@@ -12,8 +9,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
 public class Scraper {
-    public static void scrapeProductPage(
-            List<Product> products,
+    public static void  Scraping(
             Set<String> pagesDiscovered,
             List<String> pagesToScrape
     ) {
@@ -31,8 +27,7 @@ public class Scraper {
                 // fetching the target website
                 doc = Jsoup
                         .connect(url)
-                        .userAgent("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36")
-                        .get();
+                        .userAgent("Scrap").get();
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
@@ -43,7 +38,7 @@ public class Scraper {
 
             // iterating over the list of HTML products
             for (Element productElement : productElements) {
-                Product Product = new Product();
+                ArrayList <MobileSuit> MS = new ArrayList();
 
                 // extracting the data of interest from the product HTML element
                 // and storing it in Product
@@ -100,7 +95,7 @@ public class Scraper {
 
         // launching the web scraping process to discover some
         // urls and take advantage of the parallelization process
-        scrapeProductPage(products, pagesDiscovered, pagesToScrape);
+        Scraping(products, pagesDiscovered, pagesToScrape);
 
         // the number of iteration executed
         int i = 1;
@@ -109,7 +104,7 @@ public class Scraper {
 
         while (!pagesToScrape.isEmpty() && i < limit) {
             // registering the web scraping task
-            executorService.execute(() -> scrapeProductPage(products, pagesDiscovered, pagesToScrape));
+            executorService.execute(() -> Scraping(products, pagesDiscovered, pagesToScrape));
 
             // adding a 200ms delay for avoid overloading the server
             TimeUnit.MILLISECONDS.sleep(200);
