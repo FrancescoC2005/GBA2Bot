@@ -1,6 +1,6 @@
 import java.sql.*;
 
-class DatabaseConnector {
+class Database {
     public static Connection getConnection() throws SQLException {
         String url = "http://localhost:8081/phpmyadmin/index.php?route=/database/structure&db=moonscocoon";
         String username = "root";

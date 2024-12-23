@@ -5,6 +5,8 @@ import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import org.telegram.telegrambots.meta.generics.TelegramClient;
 
+import java.sql.SQLException;
+
 public class Bot implements LongPollingSingleThreadUpdateConsumer {
     private final TelegramClient telegramClient;
 
@@ -22,7 +24,7 @@ public class Bot implements LongPollingSingleThreadUpdateConsumer {
                 SendMessage message = SendMessage
                         .builder()
                         .chatId(chat_id)
-                        .text(message_text)
+                        .text("/help /random /select /find /rank /showrank")
                         .build();
                 try {
                     telegramClient.execute(message); // Sending our message object to user
@@ -44,7 +46,6 @@ public class Bot implements LongPollingSingleThreadUpdateConsumer {
                 }
             }
             else if (message_text.equals("/random")) {
-                // User send /start
                 SendMessage message = SendMessage
                         .builder()
                         .chatId(chat_id)
@@ -56,8 +57,21 @@ public class Bot implements LongPollingSingleThreadUpdateConsumer {
                     e.printStackTrace();
                 }
             }
+            else if (message_text.contains("/select")) {
+                MobileSuit cha= new MobileSuit("na","na",0,0,0,0,"na",0,0);
+                try{cha=Database.Select(message_text.toString().substring(7));}catch(SQLException e){e.printStackTrace();}
+                SendMessage message = SendMessage
+                        .builder()
+                        .chatId(chat_id)
+                        .text(cha.toString())
+                        .build();
+                try {
+                    telegramClient.execute(message); // Sending our message object to user
+                } catch (TelegramApiException e) {
+                    e.printStackTrace();
+                }
+            }
             else if (message_text.equals("/help")) {
-                // User send /start
                 SendMessage message = SendMessage
                         .builder()
                         .chatId(chat_id)

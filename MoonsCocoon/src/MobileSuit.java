@@ -18,5 +18,12 @@ public class MobileSuit {
         this.dpress=dp;
         this.Fun=fun;
         this.Power=pow;
+
+
+        }
+        public String toString(){
+        String mob= "";
+        mob=mob.concat(this.name)+";".concat(this.desc)+";".concat(String.valueOf(this.damage))+";".concat(String.valueOf(this.defense))+";".concat(String.valueOf(this.speed))+";".concat(String.valueOf(this.dash))+";".concat(this.dpress)+";".concat(String.valueOf(this.Fun))+";".concat(String.valueOf(this.Power));
+        return mob;
+        }
     }
-}
