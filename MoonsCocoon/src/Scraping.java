@@ -3,32 +3,29 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import java.io.IOException;
+import org.jsoup.*;
+import org.jsoup.nodes.*;
+import org.jsoup.select.*;
+import java.util.*;
 
 class Scraping {
-    public static void main(String[] args) {
-        String url = "https://example.com"; // URL of the webpage you want to scrape
-
+    public static void scrape(String[] args) {
+        String url = "https://wiki.gbl.gg/w/Gundam:_Battle_Assault_2"; // URL of the webpage you want to scrape
+        String[] characters = {"Neue_Ziel","Big_Zam","Hydra","Epyon","Dark","Psyco","Quin_Mantha","Accguy","Hygogg","GP-02A","Gundam_ZZ","Ball","Zeong","Sazabi","RX-78","Zaku_II","%CE%BD_Gundam","Zaku_IIS","Heavy_Arms","Sandrock","Wing","Deathscythe_Hell","Altron","Tallgeese_III","Bolt","Dragon","Burning","Maxter","Rose","Master","Zeta","The-O","Qubeley","Hamma_Hamma"};
+        int i=0;
+        for(i=0;i<characters.length;i=i+1){
         try {
             // Fetch and parse the HTML document from the URL
-            Document document = Jsoup.connect(url).get();
-
-            // Extract the title of the page
-            String title = document.title();
-            System.out.println("Title: " + title);
-
-            // Extract the body content of the page
-            String bodyText = document.body().text();
-            System.out.println("Body Text: " + bodyText);
+            Document document = Jsoup.connect(url+"/"+characters[i]).get();
 
             // You can also select specific elements by CSS selectors
-            Elements links = document.select("a[href]"); // Select all links in the page
-            System.out.println("Links on the page:");
-            for (Element link : links) {
-                System.out.println(link.attr("href") + " - " + link.text());
-            }
+            Element name = document.tagName("H1"); // Select all links in the page
+            System.out.println("Name");
+
 
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
+}
 }

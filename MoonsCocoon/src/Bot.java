@@ -14,21 +14,74 @@ public class Bot implements LongPollingSingleThreadUpdateConsumer {
 
     @Override
     public void consume(Update update) {
-        // We check if the update has a message and the message has text
         if (update.hasMessage() && update.getMessage().hasText()) {
-            // Set variables
             String message_text = update.getMessage().getText();
             long chat_id = update.getMessage().getChatId();
+            if (message_text.equals("/start")) {
+                // User send /start
+                SendMessage message = SendMessage
+                        .builder()
+                        .chatId(chat_id)
+                        .text(message_text)
+                        .build();
+                try {
+                    telegramClient.execute(message); // Sending our message object to user
+                } catch (TelegramApiException e) {
+                    e.printStackTrace();
+                }
+            }
+            else if (message_text.equals("/help")) {
+                // User send /start
+                SendMessage message = SendMessage
+                        .builder()
+                        .chatId(chat_id)
+                        .text("The commands available are: /random, /select <character>, /find <character> <statistic>, /rank <character>, /showrank")
+                        .build();
+                try {
+                    telegramClient.execute(message); // Sending our message object to user
+                } catch (TelegramApiException e) {
+                    e.printStackTrace();
+                }
+            }
+            else if (message_text.equals("/random")) {
+                // User send /start
+                SendMessage message = SendMessage
+                        .builder()
+                        .chatId(chat_id)
+                        .text("balls")
+                        .build();
+                try {
+                    telegramClient.execute(message); // Sending our message object to user
+                } catch (TelegramApiException e) {
+                    e.printStackTrace();
+                }
+            }
+            else if (message_text.equals("/help")) {
+                // User send /start
+                SendMessage message = SendMessage
+                        .builder()
+                        .chatId(chat_id)
+                        .text("The commands available are: /random, /select <character>, /find <character> <statistic>, /rank <character>, /showrank")
+                        .build();
+                try {
+                    telegramClient.execute(message); // Sending our message object to user
+                } catch (TelegramApiException e) {
+                    e.printStackTrace();
+                }
+            }
 
-            SendMessage message = SendMessage // Create a message object
-                    .builder()
-                    .chatId(chat_id)
-                    .text(message_text)
-                    .build();
-            try {
-                telegramClient.execute(message); // Sending our message object to user
-            } catch (TelegramApiException e) {
-                e.printStackTrace();
+            else {
+                // Unknown command
+                SendMessage message = SendMessage // Create a message object object
+                        .builder()
+                        .chatId(chat_id)
+                        .text("Unknown command")
+                        .build();
+                try {
+                    telegramClient.execute(message); // Sending our message object to user
+                } catch (TelegramApiException e) {
+                    e.printStackTrace();
+                }
             }
         }
     }

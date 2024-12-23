@@ -6,22 +6,17 @@ public class MobileSuit {
     Integer speed;
     Integer dash;
     String dpress;
-    String wp;
-    String sp;
-    String wk;
-    String sk;
-    String dwp;
-    String dsp;
-    String dwk;
-    String dsk;
-    String uwp;
-    String usp;
-    String uwk;
-    String usk;
-    String ultra;
-    String proj;
-    String unblock;
-    String others;
     Integer Fun;
     Integer Power;
+    MobileSuit(String nom,String desc,Integer dam,Integer def,Integer sp,Integer da,String dp,Integer fun, Integer pow){
+        this.name= nom;
+        this.desc= desc;
+        this.damage=dam;
+        this.defense=def;
+        this.speed=sp;
+        this.dash=da;
+        this.dpress=dp;
+        this.Fun=fun;
+        this.Power=pow;
+    }
 }
